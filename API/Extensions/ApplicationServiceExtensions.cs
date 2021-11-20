@@ -10,7 +10,7 @@ using Application.Activities;
 
 namespace API.Extensions
 {
-    public static class AplicationServiceExtensions
+    public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
