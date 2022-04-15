@@ -13,28 +13,20 @@ import MyTextArea from '../../../app/common/form/MyTextArea';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import { categoryOptions } from '../../../app/common/options/categoryOptions';
 import MyDateInput from '../../../app/common/form/MyDateInput';
-import { Activity } from '../../../app/models/activity';
+import { ActivityFormValues } from '../../../app/models/activity';
 
 const ActivityForm = () => {
     const history = useHistory();
     const { activityStore } = useStore();
-    const { createActivity, updateActivity, loading, loadActivity } = activityStore;
+    const { createActivity, updateActivity, loadActivity } = activityStore;
     const { id } = useParams<{ id: string }>(); 
 
-    const [activity, setActivity] = useState<Activity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        city: '',
-        date: null,
-        venue: '',
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     useEffect(() => {
         if (id) {
             loadActivity(id).then((activity) => {
-                setActivity(activity!);
+                setActivity(new ActivityFormValues(activity));
             });
         }
     }, [id, loadActivity]);
@@ -48,8 +40,8 @@ const ActivityForm = () => {
         city: Yup.string().required('Activity city is required'),
     });
 
-    function handleFormSubmit(activity: Activity) {
-        if (activity.id.length === 0) {
+    function handleFormSubmit(activity: ActivityFormValues) {
+        if (!activity.id) {
             let newActivity = {
                 ...activity,
                 id: uuid()
@@ -94,7 +86,7 @@ const ActivityForm = () => {
                         <Button 
                             disabled={isSubmitting || !dirty || !isValid}
                             floated='right' 
-                            loading={loading} 
+                            loading={isSubmitting} 
                             positive 
                             type='submit' 
                             content='Submit'  
