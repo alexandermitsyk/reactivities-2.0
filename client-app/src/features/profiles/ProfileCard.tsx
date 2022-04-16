@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { Card, Image, Icon } from "semantic-ui-react";
-import { Profile } from "../../../app/models/profile";
+import { Profile } from "../../app/models/profile";
 
 interface Props {
     profile: Profile;
