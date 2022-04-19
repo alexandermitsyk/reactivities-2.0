@@ -39,9 +39,9 @@ export default observer(function ActivityDetailedSidebar ({ activity : { attende
                             <Image size='tiny' src={a.image || '/assets/user.png'} />
                             <Item.Content verticalAlign='middle'>
                                 <Item.Header as='h3'>
-                                    <Link to={`/progiles/${a.username}`}>{a.displayName}</Link>
+                                    <Link to={`/profiles/${a.username}`}>{a.displayName}</Link>
                                 </Item.Header>
-                                <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
+                                {a.following && <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>}
                             </Item.Content>
                         </Item>
                     )) }
